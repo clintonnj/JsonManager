@@ -1,9 +1,10 @@
-var fs = require("fs"),
-    express = require("express"),
+var express = require("express"),
     cors = require("cors"),
     bodyParser = require("body-parser")
 const config = require("./config/index");
 const logger = require("./logger/index");
+const configRouter = require('./routes/config');
+const crypto = require("crypto");
 
 var port = config.port;
 var app = express();
@@ -19,6 +20,8 @@ app.use(function(req, res, next) {
   req['appSession'] = appSession;
   next();
 });
+
+app.use('/api', configRouter);
 /**
  * Start listening on the given port
  */
